@@ -6,8 +6,11 @@ cd $app_dir
 
 rm -f "$app_dir"/db/osm3s_areas "$app_dir"/db/osm3s_osm_base
 
-nohup bin/dispatcher --osm-base --attic --db-dir="$DB_DIR/" --allow-duplicate-queries=yes &
-nohup bin/dispatcher --areas --db-dir="$DB_DIR/" --allow-duplicate-queries=yes &
+cd /opt/overpass
+
+nohup bin/dispatcher --osm-base --attic --db-dir="/opt/overpass/db" --allow-duplicate-queries=yes &
+nohup bin/dispatcher --areas --db-dir="/opt/overpass/db" --allow-duplicate-queries=yes &
+bin/rules_loop.sh "db" &
 
 a2enmod cgid
 a2enmod ext_filter
